@@ -1,0 +1,215 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+
+    /* Layout */
+    --elementsize: 80px;
+    --elementpadding: 8px;
+    --elementfont: consolas;
+    --elementfontsize: 11.5px;
+    --elementgap: 5px;
+    --tablegap: 40px;
+    --scaleFactor: 2;
+
+    /* Card Layout */
+    --cardwidth: 550px;
+    /* --cardheight: 20vw; */
+    --cardpadding: 10px;
+    --cardfontsize: 20px;
+    --cardiconsize: 15px;
+
+    /* Colors */
+
+    --reactive_nonmetal_color: rgb(35, 122, 204);
+    --polyatomic_nonmetal_color: var(--reactive_nonmetal_color);
+    --diatomic_nonmetal_color: var(--reactive_nonmetal_color);
+    --noble_gas_color: rgb(214, 44, 44);
+    --alkali_metal_color: rgb(58, 141, 58);
+    --transition_metal_color: rgb(159, 82, 223);
+    --lanthanide_color: rgb(13, 59, 209);
+    --actinide_color: rgb(128, 69, 30);
+    --metalloid_color: rgb(197, 125, 30);
+    --post_transition_metal_color: rgb(50, 145, 102);
+    --alkaline_earth_metal_color: rgb(192, 72, 57);
+    --unknown_color: rgb(63, 63, 63);
+
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: rgb(78, 78, 78);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(34, 34, 34);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+table,
+th,
+td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.26);
+    text-align: left;
+}
+
+td,
+th {
+    padding: 10px;
+}
+
+.table {
+    gap: var(--tablegap);
+    position: relative;
+}
+
+.x-icon {
+    text-align: end;
+}
+
+.x-icon:hover {
+    cursor: pointer;
+    color: rgb(78, 78, 78);
+}
+
+.card {
+    font-family: var(--elementfont);
+    width: var(--cardwidth);
+    /* max-width: var(--cardwidth); */
+    /* max-width: 500px; */
+    height: fit-content;
+    padding: var(--cardpadding);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: var(--cardfontsize);
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.card>div {
+    gap: 10px;
+}
+
+.grow {
+    animation: grow 0.3s ease forwards;
+}
+
+.unclickable {
+    pointer-events: none;
+}
+
+.shrink {
+    animation: shrink 0.3s ease forwards;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-end {
+    justify-content: end;
+}
+
+.align-end {
+    align-items: end;
+}
+
+.self-end {
+    align-self: end;
+}
+
+.up {
+    gap: var(--tablegap);
+}
+
+.element {
+    user-select: none;
+    padding: var(--elementpadding);
+    width: calc((var(--elementsize) - var(--elementpadding)));
+    height: calc((var(--elementsize) - var(--elementpadding)));
+    font-family: var(--elementfont);
+    font-size: var(--elementfontsize);
+    border-radius: 10px;
+    justify-content: space-around;
+    box-shadow: 5px 5px 10px rgb(20, 20, 20);
+    transition: transform 0.1s ease;
+}
+
+.element:hover {
+    cursor: pointer;
+}
+
+.elementgroup {
+    gap: var(--elementgap);
+    transition: transform 0.1s ease;
+}
+
+.elementrow {
+    gap: var(--elementgap);
+}
+
+.element>.element_info {
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.element>.symbol {
+    font-size: calc(var(--elementfontsize) * 3.5)
+}
+
+.element * {
+    gap: 10px;
+}
+
+.element:hover {
+    transform: scale(var(--scaleFactor));
+}
+
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes shrink {
+    from {}
+
+    to {
+        transform: scale(0);
+    }
+}
