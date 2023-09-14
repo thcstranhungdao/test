@@ -6,12 +6,12 @@
 :root {
 
     /* Layout */
-    --elementsize: 70px;
+    --elementsize: 100px;
     --elementpadding: 8px;
     --elementfont: consolas;
     --elementfontsize: 11.5px;
     --elementgap: 5px;
-    --tablegap: 30px;
+    --tablegap: 50px;
     --scaleFactor: 2;
 
     /* Card Layout */
@@ -37,14 +37,10 @@
     --unknown_color: rgb(63, 63, 63);
 
 }
-h1{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* background-color: white; */
-    /* border: 1px solid white; */
-    color: dodgerblue;
-}
+
 a {
-    color: white;
+    color: #c0235a;
+
 }
 
 a:hover {
