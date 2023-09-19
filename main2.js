@@ -2,8 +2,23 @@ var btnPage = document.getElementById("btn-page");
 const categoryColors = {
   "Basic oxide": "#FF5733",
   "Amphoteric oxide": "#66FF33",
+  "Alkali metal oxide": "#66FF33",
+  "Metal oxide": "#FF5533",
+  "metalloid": "#FF6633",
+  "polyatomic nonmetal": "#FF663",
+  "Neutral gas":"#FFF22",
+  "Alkali metal":"#66FF32",
+  "Alkaline earth metal":"#66FF30",
+  "Post-transition metal":"#66FF29",
+  "Metalloid":"#66FF28",
+  "Polyatomic nonmetal":"#66FF27",
+  "Noble gas":"#66FF26",
+  "bazo":"#66FF25",
+  "axit":"#66FF24",
+  "salt":"#66FF23"
   // Add more categories and colors as needed
 };
+
 function cardIsShowing() {
   return document.querySelector(".card") !== null;
 }
@@ -37,7 +52,7 @@ function handleMissing(string) {
     string === "undefined" ||
     string.search("unknown") !== -1
   ) {
-    return "unknown";
+    return "Không biết";
   }
   return string;
 }
@@ -77,38 +92,45 @@ function getColorsFromCategory(category) {
 
 function createElementDiv(element, target) {
   let ele = findElementByName(data.elements, "name", element)[0];
-  let atomicnumber = ele.number;
-  let atomicmass = ele.atomic_mass;
-  let symbol = ele.symbol;
-  let name = ele.name;
-  let category = handleMissing(ele.category);
-  let colors = getColorsFromCategory(category);
 
-  //if atomic mass is too big
-  if (String(atomicmass).length >= 7) {
-    atomicmass = Number(atomicmass).toFixed(2);
-  }
+  if (ele) {
+    let atomicnumber = ele.number;
+    let atomicmass = ele.atomic_mass;
+    let symbol = ele.symbol;
+    let name = ele.name;
+    let category = handleMissing(ele.category);
+    let colors = getColorsFromCategory(category);
 
-  let eleDiv = `
+    //if atomic mass is too big
+    if (String(atomicmass).length >= 7) {
+      atomicmass = Number(atomicmass).toFixed(2);
+    }
+
+    let eleDiv = `
       <div class="${category} element flex-col flex-center" style="background: linear-gradient(${colors.light}, ${colors.dark})">
-      
-      <div class="symbol" style="font-size: 16px;" translate="no">${symbol}</div>
-      <div>${name}</div>
+        <div class="symbol" style="font-size: 16px;" translate="no">${symbol}</div>
+        <div>${name}</div>
       </div>
-      `;
+    `;
 
-  target.insertAdjacentHTML("beforeend", eleDiv);
+    target.insertAdjacentHTML("beforeend", eleDiv);
+  } else {
+    console.error(`Element "${element}" not found in data.elements`);
+  }
 }
-
 function removeCard() {
   if (cardIsShowing()) {
     let card = periodicTable.querySelector(".card");
-    card.classList.remove("grow");
-    card.classList.add("shrink");
-    btnPage.style.zIndex = 9999;
-    setTimeout(() => {
-      periodicTable.removeChild(card);
-    }, 1000);
+    if (card && card.parentElement === periodicTable) {
+      card.classList.remove("grow");
+      card.classList.add("shrink");
+      btnPage.style.zIndex = 9999;
+      setTimeout(() => {
+        periodicTable.removeChild(card);
+      }, 1000);
+    } else {
+      console.error("Card element is not a child of periodicTable.");
+    }
   }
 }
 
@@ -121,86 +143,80 @@ function getElementInfo(elementObj) {
     handleMissing(switchToUnderscores(elementInfo.category))
   );
   let cardDiv = `
-      <div class="card ${switchToUnderscores(
-        handleMissing(elementInfo.category)
-      )} grow flex-col" style="background: linear-gradient(${colors.light}, ${
+    <div class="card ${switchToUnderscores(
+      handleMissing(elementInfo.category)
+    )} grow flex-col" style="background: linear-gradient(${colors.light}, ${
     colors.dark
   })">
-          <nav>
-              <div class="x-icon" type="button" onclick="removeCard()">X</div>
-          </nav>
-          <div class="flex-col">
-              <table>
-                  <tr>
-                      <th>Name</th>
-                      <td><a target="_blank" href="${elementInfo.source}">${
-    elementInfo.name
-  }</a></td>
-                  </tr>
-                  <tr>
-                      <th>Atomic Number</th>
-                      <td>${elementInfo.number}</td>
-                  </tr>
-                  <tr>
-                      <th>Discovered by</th>
-                      <td>${capitalize(
-                        handleMissing(elementInfo.discovered_by)
-                      )}</td>
-                  </tr>
-                  <tr>
-                      <th>Named by</th>
-                      <td> ${capitalize(
-                        handleMissing(elementInfo.named_by)
-                      )}</td>
-                  </tr>
-                  <tr>
-                      <th>Appearance</th>
-                      <td>${capitalize(
-                        handleMissing(elementInfo.appearance)
-                      )}</td>
-                  </tr>
-                  <tr>
-                      <th>Atomic Mass</th>
-                      <td>${handleMissingNumber(
-                        elementInfo.atomic_mass,
-                        "u"
-                      )}</td>
-                  </tr>
-                  <tr>
-                      <th>Boiling point</th>
-                      <td>${handleMissingNumber(elementInfo.boil, "K")}</td>
-                  </tr>
-                  <tr>
-                      <th>Category</th>
-                      <td>${capitalize(elementInfo.category)}</td>
-                  </tr>
-                  <tr>
-                      <th>Density</th>
-                      <td>${handleMissingNumber(
-                        elementInfo.density,
-                        "kg/m³"
-                      )}</td>
-                  </tr>
-                  <tr>
-                      <th>Melting point</th>
-                      <td>${handleMissingNumber(elementInfo.melt, "K")}</td>
-                  </tr>
-                  <tr>
-                      <th>Electron configuration</th>
-                      <td>${handleMissing(
-                        elementInfo.electron_configuration
-                      )}</td>
-                  </tr>
-              </table>
-              <table>
-                  <th style="text-align: center">Summary</th>
-                  <tr>
-                      <td>${elementInfo.summary}</td>
-                  </tr>     
-              </table>
-          </div>
-      </div>
-      `;
+      <nav>
+        <div class="x-icon" type="button" onclick="removeCard()">X</div>
+      </nav>
+      <div class="flex-col">
+        <table>
+        <tr>
+        <th>Tên</th>
+        <td><a target="_blank" style="color:#000;" href="${elementInfo.source}">${
+elementInfo.name
+}</a></td>
+    </tr>
+    <tr>
+        <th>Số hiệu nguyên tử</th>
+        <td>${elementInfo.number}</td>
+    </tr>
+    <tr>
+        <th>Phát hiện</th>
+        <td>${capitalize(
+          handleMissing(elementInfo.discovered_by)
+        )}</td>
+    </tr>
+    <tr>
+        <th>Được đặt tên bởi</th>
+        <td> ${capitalize(handleMissing(elementInfo.named_by))}</td>
+    </tr>
+    <tr>
+        <th>Vẻ bề ngoài</th>
+        <td>${capitalize(
+          handleMissing(elementInfo.appearance)
+        )}</td>
+    </tr>
+    <tr>
+        <th>Khối lượng nguyên tử</th>
+        <td>${handleMissingNumber(
+          elementInfo.atomic_mass,
+          "u"
+        )}</td>
+    </tr>
+    <tr>
+        <th>Điểm sôi</th>
+        <td>${handleMissingNumber(elementInfo.boil, "K")}</td>
+    </tr>
+    <tr>
+        <th>Tỉ trọng</th>
+        <td>${handleMissingNumber(
+          elementInfo.density,
+          "kg/m³"
+        )}</td>
+    </tr>
+    <tr>
+        <th>Độ nóng chảy</th>
+        <td>${handleMissingNumber(elementInfo.melt, "K")}</td>
+    </tr>
+    <tr>
+        <th>Cấu hình electron</th>
+        <td>${handleMissing(
+          elementInfo.electron_configuration
+        )}</td>
+    </tr>
+</table>
+<table>
+    <th style="text-align: center">Bản tóm tắt</th>
+    <tr>
+        <td>${elementInfo.summary}</td>
+    </tr>     
+</table>
+</div>
+</div>
+`;
 
   periodicTable.classList.add("unclickable");
   periodicTable.insertAdjacentHTML("beforeend", cardDiv);

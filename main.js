@@ -1,4 +1,14 @@
-var btnPage = document.getElementById('btn-page');
+var btnPage = document.getElementById("btn-page");
+
+const greenColor = "#00ff00";
+const darkYellowColor = "#cccc00";
+const pinkColor = "#ff00ff";
+const lightYellowColor = "#ffffcc";
+
+const listElementGreen = document.getElementsByClassName("green");
+const listElementDarkYellow = document.getElementsByClassName("darkYellow");
+const listElementPink = document.getElementsByClassName("pink");
+const listElementLightYellow = document.getElementsByClassName("light-yellow");
 
 function cardIsShowing() {
   return document.querySelector(".card") !== null;
@@ -20,7 +30,7 @@ function capitalize(string) {
 
 function handleMissingNumber(number, suffix) {
   if (number === null) {
-    return "Unknown";
+    return "Không biết";
   } else {
     return number + " " + suffix;
   }
@@ -48,25 +58,29 @@ function findElementByName(array, key, value) {
   });
 }
 
-function getColorsFromCategory(category) {
-  let colorLight = tinycolor(eval(`${switchToUnderscores(category)}_color`))
-    .lighten(5)
-    .toString();
-  let colorDark = tinycolor(eval(`${switchToUnderscores(category)}_color`))
-    .darken(15)
-    .toString();
-
-  return { light: colorLight, dark: colorDark };
+function getColorsFromCategory(colorName) {
+  switch (colorName) {
+    case "green":
+      return greenColor;
+    case "darkYellow":
+      return darkYellowColor;
+    case "pink":
+      return pinkColor;
+    case "lightYellow":
+      return lightYellowColor;
+    default:
+      return "#ffffff";
+  }
 }
 
-function createElementDiv(element, target) {
+function createElementDiv(element, target, color) {
   let ele = findElementByName(data.elements, "name", element)[0];
   let atomicnumber = ele.number;
   let atomicmass = ele.atomic_mass;
   let symbol = ele.symbol;
   let name = ele.name;
   let category = handleMissing(switchToUnderscores(ele.category));
-  let colors = getColorsFromCategory(category);
+  let colors = getColorsFromCategory(color);
 
   //if atomic mass is too big
   if (String(atomicmass).length >= 7) {
@@ -74,7 +88,7 @@ function createElementDiv(element, target) {
   }
 
   let eleDiv = `
-    <div class="${category} element flex-col flex-center" style="background: linear-gradient(${colors.light}, ${colors.dark})">
+    <div class="${category} element flex-col flex-center" style="background: ${colors}">
     <div class="flex-row element_info">
         <div>${atomicnumber}</div>
         <div>${atomicmass}u</div>
@@ -99,86 +113,79 @@ function removeCard() {
   }
 }
 
-function getElementInfo(elementObj) {
+function getElementInfo(elementObj, color) {
   // if theres already a card
   removeCard();
   btnPage.style.zIndex = -1;
   let elementInfo = findElementByName(data.elements, "name", elementObj.id)[0];
-  let colors = getColorsFromCategory(
-    handleMissing(switchToUnderscores(elementInfo.category))
-  );
+
+  let colors = getColorsFromCategory(color);
   let cardDiv = `
     <div class="card ${switchToUnderscores(
       handleMissing(elementInfo.category)
-    )} grow flex-col" style="background: linear-gradient(${colors.light}, ${
-    colors.dark
-  })">
+    )} grow flex-col text-dark" style="background: ${colors}">
         <nav>
             <div class="x-icon" type="button" onclick="removeCard()">X</div>
         </nav>
         <div class="flex-col">
             <table>
                 <tr>
-                    <th>Name</th>
-                    <td><a target="_blank" href="${elementInfo.source}">${
+                    <th>Tên</th>
+                    <td><a target="_blank" style="color:#000;" href="${elementInfo.source}">${
     elementInfo.name
   }</a></td>
                 </tr>
                 <tr>
-                    <th>Atomic Number</th>
+                    <th>Số hiệu nguyên tử</th>
                     <td>${elementInfo.number}</td>
                 </tr>
                 <tr>
-                    <th>Discovered by</th>
+                    <th>Phát hiện</th>
                     <td>${capitalize(
                       handleMissing(elementInfo.discovered_by)
                     )}</td>
                 </tr>
                 <tr>
-                    <th>Named by</th>
+                    <th>Được đặt tên bởi</th>
                     <td> ${capitalize(handleMissing(elementInfo.named_by))}</td>
                 </tr>
                 <tr>
-                    <th>Appearance</th>
+                    <th>Vẻ bề ngoài</th>
                     <td>${capitalize(
                       handleMissing(elementInfo.appearance)
                     )}</td>
                 </tr>
                 <tr>
-                    <th>Atomic Mass</th>
+                    <th>Khối lượng nguyên tử</th>
                     <td>${handleMissingNumber(
                       elementInfo.atomic_mass,
                       "u"
                     )}</td>
                 </tr>
                 <tr>
-                    <th>Boiling point</th>
+                    <th>Điểm sôi</th>
                     <td>${handleMissingNumber(elementInfo.boil, "K")}</td>
                 </tr>
                 <tr>
-                    <th>Category</th>
-                    <td>${capitalize(elementInfo.category)}</td>
-                </tr>
-                <tr>
-                    <th>Density</th>
+                    <th>Tỉ trọng</th>
                     <td>${handleMissingNumber(
                       elementInfo.density,
                       "kg/m³"
                     )}</td>
                 </tr>
                 <tr>
-                    <th>Melting point</th>
+                    <th>Độ nóng chảy</th>
                     <td>${handleMissingNumber(elementInfo.melt, "K")}</td>
                 </tr>
                 <tr>
-                    <th>Electron configuration</th>
+                    <th>Cấu hình electron</th>
                     <td>${handleMissing(
                       elementInfo.electron_configuration
                     )}</td>
                 </tr>
             </table>
             <table>
-                <th style="text-align: center">Summary</th>
+                <th style="text-align: center">Bản tóm tắt</th>
                 <tr>
                     <td>${elementInfo.summary}</td>
                 </tr>     
@@ -225,11 +232,12 @@ const elements = document.getElementsByTagName("element");
 for (let i = 0; i < elements.length; i++) {
   let name = elements[i].id;
   let target = elements[i];
-  createElementDiv(name, target);
+  createElementDiv(name, target, target.className);
+
   elements[i].onclick = () => {
     const itemAudio = new Audio(`./music/${elements[i].id.toLowerCase()}.mp3`);
     itemAudio.play();
-    getElementInfo(elements[i]);
+    getElementInfo(elements[i], target.className);
   };
 }
 
