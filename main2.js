@@ -247,7 +247,7 @@ for (let i = 0; i < elements.length; i++) {
   let target = elements[i];
   createElementDiv(name, target);
   elements[i].onclick = () => {
-    const itemAudio = new Audio(`./music/${elements[i].id.toLowerCase()}.mp3`);
+    const itemAudio = new Audio(`./music2/${elements[i].id.toLowerCase()}.mp3`);
     itemAudio.play();
     getElementInfo(elements[i]);
   };
