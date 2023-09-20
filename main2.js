@@ -1,21 +1,10 @@
 var btnPage = document.getElementById("btn-page");
 const categoryColors = {
-  "Basic oxide": "#FF5733",
-  "Amphoteric oxide": "#66FF33",
-  "Alkali metal oxide": "#66FF33",
-  "Metal oxide": "#FF5533",
-  "metalloid": "#FF6633",
-  "polyatomic nonmetal": "#FF663",
-  "Neutral gas":"#FFF22",
-  "Alkali metal":"#66FF32",
-  "Alkaline earth metal":"#66FF30",
-  "Post-transition metal":"#66FF29",
-  "Metalloid":"#66FF28",
-  "Polyatomic nonmetal":"#66FF27",
-  "Noble gas":"#66FF26",
+  "ion":"#ff00ff",
   "bazo":"#66FF25",
-  "axit":"#66FF24",
-  "salt":"#66FF23"
+  "oxit":"#C57D1E",
+  "axit":"#C04839",
+  "salt":"#FFFFFF"
   // Add more categories and colors as needed
 };
 

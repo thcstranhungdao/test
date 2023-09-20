@@ -1,14 +1,12 @@
 var btnPage = document.getElementById("btn-page");
 
-const greenColor = "#00ff00";
-const darkYellowColor = "#cccc00";
-const pinkColor = "#ff00ff";
-const lightYellowColor = "#ffffcc";
+const greenColor ="#237ACC";
+const whiteColor="#0D3BD1"
+const pinkColor = "#3A8D3A";
 
 const listElementGreen = document.getElementsByClassName("green");
-const listElementDarkYellow = document.getElementsByClassName("darkYellow");
+const listElementWhite = document.getElementsByClassName("white")
 const listElementPink = document.getElementsByClassName("pink");
-const listElementLightYellow = document.getElementsByClassName("light-yellow");
 
 function cardIsShowing() {
   return document.querySelector(".card") !== null;
@@ -43,7 +41,7 @@ function handleMissing(string) {
     string === "undefined" ||
     string.search("unknown") !== -1
   ) {
-    return "unknown";
+    return "Không biết";
   }
   return string;
 }
@@ -69,7 +67,7 @@ function getColorsFromCategory(colorName) {
     case "lightYellow":
       return lightYellowColor;
     default:
-      return "#ffffff";
+      return "#0D3BD1";
   }
 }
 
@@ -206,18 +204,7 @@ periodicTable = document.querySelector(".table");
 body = document.getElementsByTagName("body")[0];
 
 let reactive_nonmetal_color = getCssColor("--reactive_nonmetal_color");
-let polyatomic_nonmetal_color = getCssColor("--reactive_nonmetal_color");
-let diatomic_nonmetal_color = getCssColor("--reactive_nonmetal_color");
-let noble_gas_color = getCssColor("--noble_gas_color");
-let alkali_metal_color = getCssColor("--alkali_metal_color");
-let transition_metal_color = getCssColor("--transition_metal_color");
-let lanthanide_color = getCssColor("--lanthanide_color");
-let actinide_color = getCssColor("--actinide_color");
-let metalloid_color = getCssColor("--metalloid_color");
-let post_transition_metal_color = getCssColor("--post_transition_metal_color");
-let alkaline_earth_metal_color = getCssColor("--alkaline_earth_metal_color");
-let unknown_color = getCssColor("--unknown_color");
-
+let phi_kim=getCssColor("--phi_kim");
 // gets table info
 
 var request = new XMLHttpRequest();

@@ -23,18 +23,6 @@
 
     /* Colors */
 
-    --reactive_nonmetal_color: rgb(35, 122, 204);
-    --polyatomic_nonmetal_color: var(--reactive_nonmetal_color);
-    --diatomic_nonmetal_color: var(--reactive_nonmetal_color);
-    --noble_gas_color: rgb(214, 44, 44);
-    --alkali_metal_color: rgb(58, 141, 58);
-    --transition_metal_color: rgb(159, 82, 223);
-    --lanthanide_color: rgb(13, 59, 209);
-    --actinide_color: rgb(128, 69, 30);
-    --metalloid_color: rgb(197, 125, 30);
-    --post_transition_metal_color: rgb(50, 145, 102);
-    --alkaline_earth_metal_color: rgb(192, 72, 57);
-    --unknown_color: rgb(63, 63, 63);
 
 }
 
@@ -51,7 +39,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: rgb(34, 34, 34);
-    color: white;
+    color: black !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -244,4 +232,56 @@ th {
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+
+}
+
+.table-category {
+    position: absolute;
+    top:10%;
+    left: 45%;
+    transform: translate(-50%, 0);
+    margin-top: 5%;
+    width: 740px;
+    height: 150px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .table-category .item-table {
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+  }
+  
+  .table-category .item-table ul {
+    --icon-space: 1em;
+    padding: 0;
+  }
+  
+  .table-category .item-table li {
+    padding-left: var(--icon-space);
+  }
+  
+  .table-category .item-table li:before {
+    content: "\f111";
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-left: calc(var(--icon-space) * -1);
+    width: 20px;
+  }
+  
+.axit::before{
+    color:#C04839;
+}
+.bazo::before{
+    color:#66FF25;
+}
+.salt::before{
+    color:#FFFFFF;
+}
+.oxit::before{
+    color:#C57D1E;
 }
