@@ -14,10 +14,10 @@
   --scaleFactor: 2;
 
   /* Card Layout */
-  --cardwidth: 550px;
+  --cardwidth: 350px;
   /* --cardheight: 20vw; */
   --cardpadding: 10px;
-  --cardfontsize: 20px;
+  --cardfontsize: 12px;
   --cardiconsize: 15px;
 
   /* Colors */
@@ -41,6 +41,7 @@ h1 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   /* background-color: white; */
   /* border: 1px solid white; */
+  font-size: 13px;
   color: white !important;
 }
 a {
